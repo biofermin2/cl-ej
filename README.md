@@ -1,2 +1,2 @@
 # cl-ej
-Simple scraping script to translate English word to Japanese.
+Simple scraping script that translate English word to Japanese.
