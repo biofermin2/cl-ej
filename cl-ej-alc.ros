@@ -1,0 +1,42 @@
+#!/bin/sh
+#|-*- mode:lisp -*-|#
+#|
+exec ros -Q -- $0 "$@"
+|#
+(progn ;;init forms
+  (ros:ensure-asdf)
+  #+quicklisp(ql:quickload '(:dexador :lquery) :silent t)
+  )                                     ; => (:DEXADOR :LQUERY)
+(defpackage :ros.script.en-ja.3834136354
+  (:use :cl :dexador)
+  (:shadow :delete :get))               ; => #<PACKAGE "ROS.SCRIPT.EN-JA.3834136354">
+(in-package :ros.script.en-ja.3834136354) ; => #<PACKAGE "ROS.SCRIPT.EN-JA.3834136354">
+
+(defvar url "https://eow.alc.co.jp/search?q=") ; => URL
+
+(defun req (s)
+  (let* ((con (dex:get (concatenate 'string url (string s))))
+         (p-con (lquery:$ (initialize con))))
+    (elt (lquery:$ p-con "#resultsList li" (text)) 0))) ; => REQ
+
+(defun argv ()
+  (or
+   #+clisp (ext:argv)
+   #+sbcl sb-ext:*posix-argv*          
+   #+abcl ext:*command-line-argument-list*
+   #+clozure (ccl::command-line-arguments)
+   #+gcl si:*command-args*
+   #+ecl (loop for i from 0 below (si:argc) collect (si:argv i))
+   #+cmu extensions:*command-line-strings*
+   #+allegro (sys:command-line-arguments)
+   #+lispworks sys:*line-arguments-list*
+   nil))                                ; => ARGV
+
+(defun main (arg)
+  (declare (ignorable arg))
+  (unless (eql arg nil)
+    (format t "~a~%" (req arg))))         ; => MAIN
+
+(main (third (argv)))                   ; => 
+
+;;; vim: set ft=lisp lisp:
