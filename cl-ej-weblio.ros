@@ -9,34 +9,23 @@ exec ros -Q -- $0 "$@"
   )                                     ; => (:DEXADOR :LQUERY)
 (defpackage :ros.script.en-ja.3834136354
   (:use :cl :dexador)
-  (:shadow :delete :get))               ; => #<PACKAGE "ROS.SCRIPT.EN-JA.3834136354">
+  (:shadow :delete :get)
+  (:import-from :lquery
+		:$))               ; => #<PACKAGE "ROS.SCRIPT.EN-JA.3834136354">
 (in-package :ros.script.en-ja.3834136354) ; => #<PACKAGE "ROS.SCRIPT.EN-JA.3834136354">
 
 (defvar url "https://ejje.weblio.jp/content/") ; => URL
 
 (defun req (s)
   (let* ((con (dex:get (concatenate 'string url (string s))))
-         (p-con (lquery:$ (initialize con))))
-    (lquery:$ p-con ".content-explanation" (text)))) ; => REQ
+         (p-con ($ (initialize con))))
+    ($ p-con ".content-explanation" (text)))) ; => REQ
 
-(defun argv ()
-  (or
-   #+clisp (ext:argv)
-   #+sbcl sb-ext:*posix-argv*          
-   #+abcl ext:*command-line-argument-list*
-   #+clozure (ccl::command-line-arguments)
-   #+gcl si:*command-args*
-   #+ecl (loop for i from 0 below (si:argc) collect (si:argv i))
-   #+cmu extensions:*command-line-strings*
-   #+allegro (sys:command-line-arguments)
-   #+lispworks sys:*line-arguments-list*
-   nil))                                ; => ARGV
+(defun main (&rest argv)
+  (declare (ignorable argv))
+  (unless (eql argv nil)
+    (format t "~a~%" (req (car argv)))))         ; => MAIN
 
-(defun main (arg)
-  (declare (ignorable arg))
-  (unless (eql arg nil)
-    (format t "~a~%" (req arg))))         ; => MAIN
-
-(main (third (argv)))                   ; => 
+(main)
 
 ;;; vim: set ft=lisp lisp:
