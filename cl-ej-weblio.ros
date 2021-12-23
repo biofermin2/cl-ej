@@ -6,26 +6,22 @@ exec ros -Q -- $0 "$@"
 (progn ;;init forms
   (ros:ensure-asdf)
   #+quicklisp(ql:quickload '(:dexador :lquery) :silent t)
-  )                                     ; => (:DEXADOR :LQUERY)
+  )					; => (:DEXADOR :LQUERY)
 (defpackage :ros.script.en-ja.3834136354
   (:use :cl :dexador)
   (:shadow :delete :get)
   (:import-from :lquery
-		:$))               ; => #<PACKAGE "ROS.SCRIPT.EN-JA.3834136354">
+		:$))			  ; => #<PACKAGE "ROS.SCRIPT.EN-JA.3834136354">
 (in-package :ros.script.en-ja.3834136354) ; => #<PACKAGE "ROS.SCRIPT.EN-JA.3834136354">
-
-(defvar url "https://ejje.weblio.jp/content/") ; => URL
-
-(defun req (s)
-  (let* ((con (dex:get (concatenate 'string url (string s))))
-         (p-con ($ (initialize con))))
-    ($ p-con ".content-explanation" (text)))) ; => REQ
 
 (defun main (&rest argv)
   (declare (ignorable argv))
-  (unless (eql argv nil)
-    (format t "~a~%" (req (car argv)))))         ; => MAIN
-
-(main)
+  (if (null argv)
+      (error "put something english words that you want to translate.")
+      (let* ((url "https://ejje.weblio.jp/content/")
+	     (str (format nil "~{~a~^+~}" argv))
+	     (con (dex:get (concatenate 'string url str)))
+             (p-con ($ (initialize con))))
+	(format t "~a" ($ p-con ".content-explanation" (text)))))) ; => MAIN
 
 ;;; vim: set ft=lisp lisp:
