@@ -16,12 +16,12 @@ exec ros -Q -- $0 "$@"
 
 (defun main (&rest argv)
   (declare (ignorable argv))
-  (if (null argv)
-      (error "put something english words that you want to translate.")
+  (if argv
       (let* ((url "https://ejje.weblio.jp/content/")
 	     (str (format nil "~{~a~^+~}" argv))
 	     (con (dex:get (concatenate 'string url str)))
              (p-con ($ (initialize con))))
-	(format t "~a" ($ p-con ".content-explanation" (text)))))) ; => MAIN
+	(format t "~a" ($ p-con ".content-explanation" (text))))
+      (error "put something english words that you want to translate."))) ; => MAIN
 
 ;;; vim: set ft=lisp lisp:
