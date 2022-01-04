@@ -14,26 +14,6 @@ exec ros -Q -- $0 "$@"
 		:$))                 ; => #<PACKAGE "ROS.SCRIPT.EN-JA.3834136354">
 (in-package :ros.script.en-ja.3834136354) ; => #<PACKAGE "ROS.SCRIPT.EN-JA.3834136354">
 
-;; (defvar url "https://eow.alc.co.jp/search?q=") ; => URL
-
-
-;; (defun main (&rest argv)
-;;   (declare (ignorable argv))
-;;   (if (null argv)
-;;             (error "put something english words that you want to translate.")
-;;       (let* ((url "https://ejje.weblio.jp/content/")
-;; 	     (str (format nil "~{~a~^+~}" argv))
-;; 	     (con (dex:get (concatenate 'string url str)))
-;;              (p-con ($ (initialize con))))
-;; 	(format t "~a" ($ p-con ".content-explanation" (text)))))) ; => MAIN
-
-;; (defun req (s)
-;;   (let* ((url "https://eow.alc.co.jp/search?q=")
-;; 	 (str (format nil "~{~a~^+~}" argv))
-;; 	 (con (dex:get (concatenate 'string url (string s))))
-;;          (p-con ($ (initialize con))))
-;;     (elt ($ p-con "#resultsList li" (text)) 0))) ; => REQ
-
 (defun main (&rest argv)
   (declare (ignorable argv))
   (if argv
@@ -44,6 +24,5 @@ exec ros -Q -- $0 "$@"
       (format t "~a~%" (elt ($ p-con "#resultsList li" (text)) 0)))
     (error "put something english words that you want to translate.")
     ))      ; => MAIN
-					;(format t "~a~%" (req (car argv)))
 
 ;;; vim: set ft=lisp lisp:
