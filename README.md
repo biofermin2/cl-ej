@@ -13,7 +13,7 @@ $ ./cl-ej-weblio.ros [English word] or [idioms]
 ~~~  
 if you want to know more detail, you should execute the follow line,please.
 ~~~shellscript  
-$ ./cl-ej-alc.ros [English word] 
+$ ./cl-ej-alc.ros [English word] or [idioms]
 ~~~
 but these are not so smart way.
 
