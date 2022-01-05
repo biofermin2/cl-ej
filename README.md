@@ -21,3 +21,8 @@ if you use these script more conviniently,
 you had better to export script path,and make alies by yourself.
 
 That's all.
+
+# special thanks!
+Lastly, I would like to take this opportunity to thank 
+ALC PRESS INC. and GRAS Group Inc. 
+for their wonderful web services.
