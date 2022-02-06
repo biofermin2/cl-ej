@@ -15,10 +15,11 @@ if you want to know more detail, you should execute the follow line,please.
 ~~~shellscript  
 $ ./cl-ej-alc.ros [English word] or [idioms]
 ~~~
-but these are not so smart way.
+but these are not smart way.
 
 if you use these script more conviniently, 
 you had better to export script path,and make alies by yourself.
+Especially using bindkey and function of zsh will make you happy.
 
 That's all.
 
