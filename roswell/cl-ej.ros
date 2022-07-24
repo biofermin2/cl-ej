@@ -1,0 +1,23 @@
+#!/bin/sh
+#|-*- mode:lisp -*-|#
+#|
+exec ros -Q -- $0 "$@"
+|#
+(progn ;;init forms
+  (ros:ensure-asdf)
+  #+quicklisp(ql:quickload '(:cl-ej) :silent t)) ; => (:CL-EJ)
+
+(defpackage :ros.script.cl-ej.3867649227
+  (:use :cl :cl-ej))			; => #<PACKAGE "ROS.SCRIPT.CL-EJ.3867649227">
+(in-package :ros.script.cl-ej.3867649227) ; => #<PACKAGE "ROS.SCRIPT.CL-EJ.3867649227">
+
+(defun main (&rest argv)
+  (declare (ignorable argv))
+  (let ((w (weblio argv))
+	(a (alc argv)))
+    (format t "~a~%~a~%" a w)
+    (dotimes (x 5)
+      (say (format nil "~{~a~^ ~}" argv)))
+    (say w)))				; => MAIN
+
+;;; vim: set ft=lisp lisp:
