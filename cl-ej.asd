@@ -4,7 +4,7 @@
 
 
 (asdf:defsystem #:cl-ej
-  :description "Describe cl-ej here"
+  :description "this script translate english to japanese on your commandline with voice."
   :author "biofermin2"
   :license  "MIT"
   :version "0.1.0"
