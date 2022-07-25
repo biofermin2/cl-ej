@@ -15,9 +15,9 @@ exec ros -Q -- $0 "$@"
   (declare (ignorable argv))
   (let ((w (weblio argv))
 	(a (alc argv)))
-    (format t "~a~%~a~%" a w)
-    (dotimes (x 5)
-      (say (format nil "~{~a~^ ~}" argv)))
-    (say w)))				; => MAIN
+    (ignore-errors (dotimes (x 5)
+		     (say (format nil "~{~a~^ ~}" argv)))
+		   (say w))
+    (format t "~a~%~a~%" a w)))		; => MAIN
 
 ;;; vim: set ft=lisp lisp:
