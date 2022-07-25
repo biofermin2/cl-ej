@@ -8,11 +8,11 @@ you give execute priviledge first.
 $ sudo chmod +x *.ros
 ~~~  
 
-then build ros script and move it on /usr/bin.
+then build ros script and move it on ~~/usr/bin~~ ~/.roswell/bin.
 
 ```shellscript
 $ ros build cl-ej.ros
-$ mv cl-ej /usr/bin
+$ mv cl-ej ~/.roswell/bin
 ```
 now you can translate english words or idioms.
 
