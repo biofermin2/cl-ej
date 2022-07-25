@@ -1,0 +1,40 @@
+#!/bin/sh
+#|-*- mode:lisp -*-|#
+#|
+exec ros -Q -- $0 "$@"
+|#
+(progn ;;init forms
+  (ros:ensure-asdf)
+  #+quicklisp(ql:quickload '(:cl-ej) :silent t)
+  )					; => (:CL-EJ)
+
+(defpackage :ros.script.print-db.3867710272
+  (:use :cl :cl-ej))			; => #<PACKAGE "ROS.SCRIPT.PRINT-DB.3867710272">
+(in-package :ros.script.print-db.3867710272) ; => #<PACKAGE "ROS.SCRIPT.PRINT-DB.3867710272">
+
+(defun print-ht (ht)
+  "ハッシュ表の出力関数"
+  (maphash #'(lambda (k v) (print (list k v))) ht))
+					; => PRINT-HT
+(defun load-db (file ht)
+  "ロード元のファイルを読み込み登録用の辞書テーブルに展開する"
+  (init-db file)
+  (let ((infile (merge-pathnames (make-pathname
+				  :directory '(:relative "howm" "junk")
+				  :name (string-downcase file)
+				  :type "db"
+				  :version :newest)
+				 (user-homedir-pathname))))
+    (with-open-file (in infile :external-format :utf-8)
+      (with-standard-io-syntax
+        (setf ht (read in))))))		; => LOAD-DB
+
+(defun main (&rest argv)
+  (declare (ignorable argv))
+  (let ((ht (make-hash-table :test #'equal))
+	(pn (pathname-name (car argv))))
+    (setf ht (load-db pn ht))
+	(print-ht ht)))					 ; => MAIN
+;;(pathname-name "~/howm/junk/weblio.db")
+					; => "weblio"
+;;; vim: set ft=lisp lisp:
