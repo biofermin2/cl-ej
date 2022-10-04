@@ -1,6 +1,8 @@
 # cl-ej
 Simple scraping script that translate English word to Japanese.
 
+<a href=""><img src="https://github.com/biofermin2/cl-ej/blob/7e0b9dac5d14935f54554c7c276bcc962ec7f2be/cl-ej.gif"></a>
+
 ## usage
 you give execute priviledge first.
 
