@@ -41,11 +41,11 @@ output to *verbose-out*.  Returns the shell's exit code."
     (ext:run-shell-command  command :output :terminal :wait t))) ; => SYSTEM
 
 (defun say (word)
-  (let* ((init (car (coerce word 'list)))
+  (let* ((init (cadr (coerce word 'list)))
 	 (tts (if (standard-char-p init)
 		  "flite"
 		  "ojtalk")))
-    (system (format nil "~a~a~a~a" "echo \"" word "\" | " tts)))) ; => SAY
+    (system (format nil "echo '~a' | ~a" word tts)))) ; =>SAY 
 
 (defun init-db (file)
   "該当するdbが存在するかどうか調べて存在しない場合空のハッシュテーブルが
